@@ -199,6 +199,8 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         // Handle avatar upload
         document.getElementById('avatar-upload').addEventListener('change', function(e) {
@@ -207,7 +209,6 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('avatar-preview').src = e.target.result;
-                    // Save avatar to localStorage
                     localStorage.setItem('userAvatar', e.target.result);
                 };
                 reader.readAsDataURL(file);
@@ -223,8 +224,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadUserData();
             setupEventListeners();
+            loadAnalysisHistory();
 
-            // Load saved avatar and character
             const savedAvatar = localStorage.getItem('userAvatar');
             if (savedAvatar) {
                 document.getElementById('avatar-preview').src = savedAvatar;
@@ -237,8 +238,7 @@
         });
 
         function loadUserData() {
-            // This would fetch user data from the backend
-            const userData = {
+            const userData = JSON.parse(localStorage.getItem('userData')) || {
                 fullName: 'John Doe',
                 email: 'john@example.com',
                 company: 'Example Inc.',
@@ -251,16 +251,120 @@
             document.getElementById('website').value = userData.website;
         }
 
-        function sendFeedback() {
-            const feedback = document.getElementById('feedback').value;
-            if (!feedback.trim()) {
-                alert('Please enter your feedback');
+        function saveUserData() {
+            const userData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                website: document.getElementById('website').value
+            };
+            localStorage.setItem('userData', JSON.stringify(userData));
+            showNotification('Profile updated successfully');
+        }
+
+        function loadAnalysisHistory() {
+            const history = JSON.parse(localStorage.getItem('analysisHistory')) || [];
+            const recentAnalyses = history.slice(0, 5);
+            const activityLog = document.getElementById('activityLog');
+            
+            if (recentAnalyses.length === 0) {
+                activityLog.innerHTML = '<p class="text-gray-500 text-center py-4">No analysis history yet</p>';
                 return;
             }
 
-            // This would send feedback to the backend
-            alert('Thank you for your feedback!');
+            activityLog.innerHTML = recentAnalyses.map(analysis => `
+                <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                    <div>
+                        <p class="font-medium text-gray-900">${analysis.url}</p>
+                        <p class="text-sm text-gray-500">Score: ${analysis.score}%</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="downloadPDF('${analysis.id}')" class="text-blue-600 hover:text-blue-800">
+                            <span class="material-icons">download</span>
+                        </button>
+                        <span class="text-sm text-gray-500">${formatDate(analysis.date)}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function downloadPDF(analysisId) {
+            const history = JSON.parse(localStorage.getItem('analysisHistory')) || [];
+            const analysis = history.find(a => a.id === analysisId);
+            if (!analysis) return;
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Add report header
+            doc.setFontSize(20);
+            doc.text('SEO Analysis Report', 20, 20);
+            
+            // Add basic info
+            doc.setFontSize(12);
+            doc.text(`URL: ${analysis.url}`, 20, 40);
+            doc.text(`Analysis Date: ${formatDate(analysis.date)}`, 20, 50);
+            doc.text(`SEO Score: ${analysis.score}%`, 20, 60);
+            
+            // Add issues section
+            let y = 80;
+            doc.setFontSize(16);
+            doc.text('Issues Found:', 20, y);
+            y += 10;
+            
+            doc.setFontSize(12);
+            analysis.report.issues.forEach(issue => {
+                if (y > 250) {
+                    doc.addPage();
+                    y = 20;
+                }
+                doc.text(`• ${issue.message}`, 20, y);
+                y += 10;
+                if (issue.fix) {
+                    doc.text(`  Fix: ${issue.fix}`, 30, y);
+                    y += 10;
+                }
+            });
+            
+            // Save PDF
+            doc.save(`seo-report-${analysis.url.replace(/[^a-z0-9]/gi, '-')}.pdf`);
+            showNotification('Report downloaded successfully');
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function sendFeedback() {
+            const feedback = document.getElementById('feedback').value;
+            if (!feedback.trim()) {
+                showNotification('Please enter your feedback');
+                return;
+            }
+
+            // Store feedback in localStorage for now
+            const feedbacks = JSON.parse(localStorage.getItem('userFeedback')) || [];
+            feedbacks.push({
+                date: new Date().toISOString(),
+                message: feedback
+            });
+            localStorage.setItem('userFeedback', JSON.stringify(feedbacks));
+
             document.getElementById('feedback').value = '';
+            showNotification('Thank you for your feedback!');
         }
     </script>
 </body>

@@ -162,9 +162,45 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            loadHistory();
+            loadHistoryFromStorage();
             setupEventListeners();
         });
+
+        // Load history from localStorage
+        function loadHistoryFromStorage() {
+            const savedHistory = localStorage.getItem('analysisHistory');
+            if (savedHistory) {
+                analysisHistory = JSON.parse(savedHistory);
+                loadHistory();
+            }
+        }
+
+        // Save history to localStorage
+        function saveHistoryToStorage() {
+            localStorage.setItem('analysisHistory', JSON.stringify(analysisHistory));
+        }
+
+        // Add new analysis to history
+        function addAnalysis(url, report) {
+            const analysis = {
+                id: Date.now(),
+                url: url,
+                date: new Date().toISOString(),
+                score: calculateScore(report),
+                status: 'completed',
+                report: report
+            };
+            analysisHistory.unshift(analysis);
+            saveHistoryToStorage();
+            loadHistory();
+        }
+
+        // Calculate SEO score from report
+        function calculateScore(report) {
+            const totalChecks = report.issues.length + report.warnings.length + report.passed.length;
+            const passedChecks = report.passed.length;
+            return Math.round((passedChecks / totalChecks) * 100);
+        }
 
         function setupEventListeners() {
             document.getElementById('search').addEventListener('input', filterResults);

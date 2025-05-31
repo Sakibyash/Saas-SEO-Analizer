@@ -93,6 +93,10 @@
                             <span class="material-icons mr-2">link</span>
                             Fix Broken Links
                         </button>
+                        <button onclick="window.location.href='/pages/history.html'" class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 col-span-2">
+                            <span class="material-icons mr-2">history</span>
+                            View Analysis History
+                        </button>
                     </div>
                 </div>
 
@@ -146,35 +150,18 @@
     </div>
 
     <script>
-        // Initialize Monaco Editor
-        require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.33.0/min/vs' } });
-
-        let editor;
-        require(['vs/editor/editor.main'], function () {
-            editor = monaco.editor.create(document.getElementById('editor'), {
-                value: '<!-- Your HTML code here -->',
-                language: 'html',
-                theme: 'vs-light',
-                automaticLayout: true
-            });
-        });
-
-        // Event Listeners
-        document.getElementById('validate-btn').addEventListener('click', validateCode);
-        document.getElementById('save-btn').addEventListener('click', saveChanges);
-
         // Quick Fix Templates
         const quickFixes = {
             title: {
                 find: /<title>.*?<\/title>/,
-                replace: '<title>{{title}} - Your Brand Name</title>',
+                replace: '<title>SEO-Optimized Page Title - SEO Fixer</title>',
                 message: 'Title tag optimized for better SEO'
             },
             meta: {
                 find: /<head>[^]*?<\/head>/,
                 replace: function(match) {
                     if (!match.includes('<meta name="description"')) {
-                        return match.replace('</head>', '\n    <meta name="description" content="{{description}}">\n</head>');
+                        return match.replace('</head>', '\n    <meta name="description" content="Improve your website\'s SEO with our powerful analysis tools">\n</head>');
                     }
                     return match;
                 },
@@ -184,7 +171,7 @@
                 find: /<img[^>]+>/g,
                 replace: function(match) {
                     if (!match.includes('alt=')) {
-                        return match.replace('>', ' alt="{{alt}}">');
+                        return match.replace('>', ' alt="Descriptive image alt text">');
                     }
                     return match;
                 },
@@ -194,13 +181,44 @@
                 find: /<a[^>]+>/g,
                 replace: function(match) {
                     if (match.includes('href="#"') || match.includes('href=""')) {
-                        return match.replace(/href=["'][^"']*["']/, 'href="{{url}}"');
+                        return match.replace(/href=["'][^"']*["']/, 'href="https://example.com/page"');
                     }
                     return match;
                 },
                 message: 'Broken links fixed'
+            },
+            'compress-images': {
+                message: 'Image compression started'
+            },
+            'enable-gzip': {
+                message: 'Gzip compression configuration started'
             }
         };
+
+
+
+        // Initialize Monaco Editor
+        require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs' } });
+
+        let editor;
+        require(['vs/editor/editor.main'], function () {
+            editor = monaco.editor.create(document.getElementById('editor'), {
+                value: '<!DOCTYPE html>\n<html>\n<head>\n    <title>Your Page Title</title>\n</head>\n<body>\n    <h1>Welcome</h1>\n    <img src="image.jpg">\n    <a href="#">Broken Link</a>\n</body>\n</html>',
+                language: 'html',
+                theme: 'vs-light',
+                automaticLayout: true
+            });
+
+            // Add change listener to update preview
+            editor.onDidChangeModelContent(() => {
+                updatePreview();
+            });
+
+            // Initial preview update
+            updatePreview();
+        });
+
+
 
         // Functions
         function applyQuickFix(type) {
@@ -333,14 +351,40 @@
 
         // Apply quick fix
         function applyQuickFix(type) {
-            switch (type) {
-                case 'compress-images':
-                    alert('Starting image compression...');
-                    break;
-                case 'enable-gzip':
-                    alert('Configuring Gzip compression...');
-                    break;
+            const fix = quickFixes[type];
+            if (!fix) return;
+
+            // Special cases
+            if (type === 'compress-images' || type === 'enable-gzip') {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'fixed bottom-4 right-4 bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded';
+                messageDiv.textContent = fix.message;
+                document.body.appendChild(messageDiv);
+                setTimeout(() => messageDiv.remove(), 3000);
+                return;
             }
+
+            // Regular fixes
+            const code = editor.getValue();
+            let newCode;
+            if (typeof fix.replace === 'function') {
+                newCode = code.replace(fix.find, fix.replace);
+            } else {
+                newCode = code.replace(fix.find, fix.replace);
+            }
+
+            // Update editor content
+            editor.setValue(newCode);
+            updatePreview();
+
+            // Show success message
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'fixed bottom-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded';
+            messageDiv.textContent = fix.message;
+            document.body.appendChild(messageDiv);
+
+            // Remove message after 3 seconds
+            setTimeout(() => messageDiv.remove(), 3000);
         }
 
         // Initialize
