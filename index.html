@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Fixer - AI-Powered SEO Analyzer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom Theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066FF',
+                        secondary: '#6B7280',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        error: '#EF4444',
+                        dark: '#111827',
+                        light: '#F3F4F6'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        .score-ring {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: conic-gradient(#0066FF 0%, #E5E7EB 0%);
+            position: relative;
+        }
+        
+        .score-ring::before {
+            content: '';
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: white;
+        }
+        
+        .score-value {
+            position: relative;
+            z-index: 1;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0066FF;
+        }
+        
+        .loading {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+        
+        .loading.active {
+            display: flex;
+        }
+        
+        .animate-pulse-ring {
+            animation: pulse-ring 1.25s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); }
+            50% { transform: scale(1); }
+            100% { transform: scale(0.95); }
+        }
+    </style>
+</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Fixer - AI-Powered SEO Analyzer & Optimizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a73e8',
+                        secondary: '#5f6368',
+                        success: '#34a853',
+                        warning: '#fbbc05',
+                        error: '#ea4335',
+                        surface: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: conic-gradient(#1a73e8 0%, #e6e6e6 0%);
+            position: relative;
+        }
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: white;
+        }
+        .score-value {
+            position: relative;
+            z-index: 1;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+        .loading.active {
+            display: flex;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Loading Overlay -->
+    <div class="loading" id="loading-overlay">
+        <div class="flex flex-col items-center">
+            <div class="score-ring animate-pulse-ring">
+                <span class="score-value">...</span>
+            </div>
+            <p class="mt-6 text-lg text-dark font-medium">Analyzing your website...</p>
+            <p class="mt-2 text-secondary">This might take a few seconds</p>
+        </div>
+    </div>
+
+    <div class="min-h-screen bg-gray-50">
+        <!-- Sidebar -->
+        <div class="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200">
+            <div class="flex flex-col h-full">
+                <!-- Logo -->
+                <div class="flex items-center justify-center h-16 border-b border-gray-200">
+                    <span class="text-xl font-bold text-primary">SEO Fixer</span>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="flex-1 p-4">
+                    <a href="/" class="flex items-center px-4 py-2 text-blue-600 bg-blue-50 rounded-lg">
+                        <span class="material-icons mr-3">dashboard</span>
+                        Dashboard
+                    </a>
+                    <a href="/pages/history.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <span class="material-icons mr-3">history</span>
+                        History
+                    </a>
+                    <a href="/pages/fix-tools.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <span class="material-icons mr-3">build</span>
+                        Fix Tools
+                    </a>
+                    <a href="/pages/settings.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <span class="material-icons mr-3">settings</span>
+                        Settings
+                    </a>
+                    <a href="/pages/profile.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                        <span class="material-icons mr-3">person</span>
+                        Profile
+                    </a>
+                </nav>
+            </div>
+            <!-- Upgrade Section -->
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <div class="flex items-center text-primary mb-2">
+                        <span class="material-icons mr-2">workspace_premium</span>
+                        <span class="font-medium">Free Plan</span>
+                    </div>
+                    <p class="text-sm text-secondary mb-3">Upgrade to Pro for advanced features</p>
+                    <button class="w-full bg-primary text-white py-2 rounded-md hover:bg-blue-700 transition-colors">
+                        Upgrade Now
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="ml-64 p-8">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold text-dark">Website Analysis</h1>
+                    <p class="text-secondary mt-1">Enter your website URL to get started</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative" id="profile-menu">
+                    <button id="profile-button" class="flex items-center text-secondary hover:text-primary transition-colors">
+                        <span class="material-icons mr-1">person_outline</span>
+                        Loading...
+                    </button>
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden" id="profile-dropdown">
+                        <button onclick="logout()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                            <span class="material-icons text-sm mr-2">logout</span>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="bg-white shadow-sm rounded-xl p-6 mb-8">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-1 relative">
+                        <span class="material-icons absolute left-4 top-3.5 text-secondary">link</span>
+                        <input type="url" 
+                               id="url-input"
+                               placeholder="Enter your website URL (e.g., https://example.com)" 
+                               class="w-full pl-12 pr-4 py-3 bg-light border-2 border-transparent rounded-lg focus:border-primary focus:ring-0 transition-colors"
+                        />
+                    </div>
+                    <button id="analyze-btn" 
+                            class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center font-medium">
+                        <span class="material-icons mr-2">analytics</span>
+                        Analyze SEO
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-12 gap-8">
+                <!-- Left Column -->
+                <div class="col-span-8 space-y-8">
+                    <!-- Score Card -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-bold text-dark">SEO Score</h2>
+                            <button class="text-secondary hover:text-primary transition-colors">
+                                <span class="material-icons">more_vert</span>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="score-ring" id="score-circle">
+                                <span class="score-value" id="seo-score">0</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-6 flex-1 ml-8">
+                                <div class="bg-red-50 p-4 rounded-xl">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="material-icons text-error">error_outline</span>
+                                        <span class="text-2xl font-bold text-error" id="issues-count">0</span>
+                                    </div>
+                                    <div class="text-sm font-medium text-dark">Issues</div>
+                                </div>
+                                <div class="bg-yellow-50 p-4 rounded-xl">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="material-icons text-warning">warning_amber</span>
+                                        <span class="text-2xl font-bold text-warning" id="warnings-count">0</span>
+                                    </div>
+                                    <div class="text-sm font-medium text-dark">Warnings</div>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-xl">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="material-icons text-success">check_circle_outline</span>
+                                        <span class="text-2xl font-bold text-success" id="passed-count">0</span>
+                                    </div>
+                                    <div class="text-sm font-medium text-dark">Passed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Metrics -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-bold text-dark">Performance Metrics</h2>
+                            <button class="flex items-center text-secondary hover:text-primary transition-colors">
+                                <span class="material-icons mr-1">refresh</span>
+                                Refresh
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="p-4 border border-gray-100 rounded-xl">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <div class="text-sm text-secondary mb-1">Page Speed</div>
+                                        <div class="text-2xl font-bold text-dark" id="page-speed">--</div>
+                                    </div>
+                                    <span class="material-icons text-error">speed</span>
+                                </div>
+                                <div class="mt-4 text-sm text-secondary">Needs improvement</div>
+                            </div>
+                            <div class="p-4 border border-gray-100 rounded-xl">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <div class="text-sm text-secondary mb-1">Mobile Friendly</div>
+                                        <div class="text-2xl font-bold text-dark" id="mobile-friendly">--</div>
+                                    </div>
+                                    <span class="material-icons text-warning">phone_android</span>
+                                </div>
+                                <div class="mt-4 text-sm text-secondary">Partially optimized</div>
+                            </div>
+                            <div class="p-4 border border-gray-100 rounded-xl">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <div class="text-sm text-secondary mb-1">SSL Security</div>
+                                        <div class="text-2xl font-bold text-dark" id="ssl-status">--</div>
+                                    </div>
+                                    <span class="material-icons text-success">security</span>
+                                </div>
+                                <div class="mt-4 text-sm text-secondary">Certificate valid</div>
+                            </div>
+                            <div class="p-4 border border-gray-100 rounded-xl">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <div class="text-sm text-secondary mb-1">Crawlability</div>
+                                        <div class="text-2xl font-bold text-dark" id="crawlability">--</div>
+                                    </div>
+                                    <span class="material-icons text-primary">travel_explore</span>
+                                </div>
+                                <div class="mt-4 text-sm text-secondary">Checking access...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-span-4 space-y-8">
+                    <!-- Fix Suggestions -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-bold text-dark">Fix Suggestions</h2>
+                            <button class="flex items-center text-secondary hover:text-primary transition-colors">
+                                <span class="material-icons mr-1">filter_list</span>
+                                Filter
+                            </button>
+                        </div>
+                        <div id="fix-suggestions" class="space-y-4">
+                            <div class="text-secondary text-center py-8">
+                                <span class="material-icons text-5xl mb-2">search</span>
+                                <p>Enter a URL above to get<br>personalized fix suggestions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h2 class="text-xl font-bold text-dark mb-6">Quick Actions</h2>
+                        <div class="space-y-4">
+                            <button class="w-full flex items-center justify-between p-4 border border-gray-100 rounded-xl hover:border-primary hover:text-primary transition-colors group">
+                                <div class="flex items-center">
+                                    <span class="material-icons mr-3 group-hover:text-primary">history</span>
+                                    <span>View Analysis History</span>
+                                </div>
+                                <span class="material-icons">chevron_right</span>
+                            </button>
+                            <button class="w-full flex items-center justify-between p-4 border border-gray-100 rounded-xl hover:border-primary hover:text-primary transition-colors group">
+                                <div class="flex items-center">
+                                    <span class="material-icons mr-3 group-hover:text-primary">download</span>
+                                    <span>Export Report</span>
+                                </div>
+                                <span class="material-icons">chevron_right</span>
+                            </button>
+                            <button class="w-full flex items-center justify-between p-4 border border-gray-100 rounded-xl hover:border-primary hover:text-primary transition-colors group">
+                                <div class="flex items-center">
+                                    <span class="material-icons mr-3 group-hover:text-primary">share</span>
+                                    <span>Share Results</span>
+                                </div>
+                                <span class="material-icons">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // State Management
+        const state = {
+            analyzing: false,
+            data: null,
+            user: null
+        };
+
+        // Check authentication
+        function checkAuth() {
+            const token = localStorage.getItem('auth_token');
+            if (!token) {
+                window.location.href = '/login.html';
+                return;
+            }
+
+            // Fetch user data
+            fetch('/auth/user', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Authentication failed');
+                }
+                return response.json();
+            })
+            .then(userData => {
+                state.user = userData;
+                updateUserInfo(userData);
+            })
+            .catch(error => {
+                console.error('Auth error:', error);
+                localStorage.removeItem('auth_token');
+                window.location.href = '/login.html';
+            });
+        }
+
+        // Update user info in UI
+        function updateUserInfo(user) {
+            const userButton = document.querySelector('.user-button');
+            if (userButton) {
+                userButton.innerHTML = `
+                    <span class="material-icons mr-1">person</span>
+                    ${user.full_name}
+                `;
+            }
+        }
+
+        // DOM Elements
+        const elements = {
+            urlInput: document.getElementById('url-input'),
+            analyzeBtn: document.getElementById('analyze-btn'),
+            loading: document.getElementById('loading-overlay'),
+            scoreRing: document.getElementById('score-circle'),
+            scoreValue: document.getElementById('seo-score'),
+            issuesCount: document.getElementById('issues-count'),
+            warningsCount: document.getElementById('warnings-count'),
+            passedCount: document.getElementById('passed-count'),
+            pageSpeed: document.getElementById('page-speed'),
+            mobileFriendly: document.getElementById('mobile-friendly'),
+            sslStatus: document.getElementById('ssl-status'),
+            crawlability: document.getElementById('crawlability'),
+            fixSuggestions: document.getElementById('fix-suggestions')
+        };
+
+        // UI Updates
+        function updateScore(score) {
+            elements.scoreValue.textContent = score;
+            elements.scoreRing.style.background = 
+                `conic-gradient(#0066FF ${score * 3.6}deg, #E5E7EB ${score * 3.6}deg)`;
+        }
+
+        function updateMetrics(data) {
+            elements.pageSpeed.textContent = data.metrics.pageSpeed || '--';
+            elements.mobileFriendly.textContent = data.metrics.mobileFriendly || '--';
+            elements.sslStatus.textContent = data.metrics.ssl || '--';
+            elements.crawlability.textContent = data.metrics.crawlability || '--';
+        }
+
+        function updateFixSuggestions(issues, warnings) {
+            if (!issues.length && !warnings.length) {
+                elements.fixSuggestions.innerHTML = `
+                    <div class="text-center py-8 text-success">
+                        <span class="material-icons text-5xl mb-2">check_circle</span>
+                        <p>Great job! No issues found.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const suggestions = [...issues, ...warnings].map(item => `
+                <div class="p-4 border border-gray-100 rounded-xl hover:border-primary transition-colors group">
+                    <div class="flex items-start justify-between mb-2">
+                        <div class="flex-1">
+                            <h4 class="font-medium text-dark">${item.message}</h4>
+                            <p class="text-sm text-secondary mt-1">${item.fix}</p>
+                        </div>
+                        <span class="material-icons text-${item.type === 'issue' ? 'error' : 'warning'}">
+                            ${item.type === 'issue' ? 'error_outline' : 'warning_amber'}
+                        </span>
+                    </div>
+                    <div class="flex items-center justify-end mt-4">
+                        <button class="text-primary hover:text-blue-700 transition-colors flex items-center text-sm font-medium">
+                            Fix Now
+                            <span class="material-icons ml-1 text-base">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            elements.fixSuggestions.innerHTML = suggestions;
+        }
+
+        function setLoading(loading) {
+            state.analyzing = loading;
+            elements.loading.classList.toggle('active', loading);
+            elements.analyzeBtn.disabled = loading;
+            elements.analyzeBtn.innerHTML = loading
+                ? '<span class="material-icons animate-spin mr-2">refresh</span>Analyzing...'
+                : '<span class="material-icons mr-2">analytics</span>Analyze SEO';
+        }
+
+        // API Interaction
+        async function analyzeSEO(url) {
+            try {
+                // Send request to analyze URL
+                const token = localStorage.getItem('auth_token');
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ url })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                state.data = data;
+
+                // Update UI
+                updateScore(data.score);
+                elements.issuesCount.textContent = data.issues.length;
+                elements.warningsCount.textContent = data.warnings.length;
+                elements.passedCount.textContent = data.passed.length;
+                updateMetrics(data);
+                updateFixSuggestions(data.issues, data.warnings);
+
+            } catch (error) {
+                console.error('Analysis failed:', error);
+                elements.fixSuggestions.innerHTML = `
+                    <div class="text-center py-8 text-error">
+                        <span class="material-icons text-5xl mb-2">error_outline</span>
+                        <p>Analysis failed: ${error.message}</p>
+                        <button onclick="retryAnalysis()" class="mt-4 text-primary hover:text-blue-700 transition-colors flex items-center mx-auto">
+                            <span class="material-icons mr-1">refresh</span>
+                            Retry Analysis
+                        </button>
+                    </div>
+                `;
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Event Handlers
+        function handleAnalyze() {
+            const url = elements.urlInput.value.trim();
+            if (!url) {
+                elements.urlInput.focus();
+                return;
+            }
+            analyzeSEO(url);
+        }
+
+        function retryAnalysis() {
+            if (elements.urlInput.value.trim()) {
+                handleAnalyze();
+            }
+        }
+
+        // Event Listeners
+        elements.urlInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !state.analyzing) {
+                handleAnalyze();
+            }
+        });
+
+        elements.analyzeBtn.addEventListener('click', () => {
+            if (!state.analyzing) {
+                handleAnalyze();
+            }
+        });
+
+        // Authentication
+        async function checkAuth() {
+            console.log('Checking authentication...');
+            
+            // Check URL hash for token
+            const hash = window.location.hash;
+            if (hash.startsWith('#token=')) {
+                const token = hash.substring(7);
+                console.log('Found token in URL hash');
+                localStorage.setItem('auth_token', token);
+                // Clear the hash
+                window.location.hash = '';
+            }
+            
+            const token = localStorage.getItem('auth_token');
+            console.log('Token from storage:', token ? 'exists' : 'not found');
+            
+            if (!token) {
+                console.log('No token found, redirecting to login...');
+                window.location.href = '/login.html';
+                return;
+            }
+
+            try {
+                console.log('Fetching user info...');
+                const response = await fetch('/auth/user', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json'
+                    },
+                    credentials: 'same-origin'
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Auth error:', errorData);
+                    throw new Error(errorData.detail || `Authentication failed: ${response.status}`);
+                }
+
+                const user = await response.json();
+                console.log('User info received:', user);
+                
+                // Update user info in the UI
+                const profileButton = document.querySelector('#profile-button');
+                if (profileButton) {
+                    profileButton.innerHTML = `
+                        <span class="material-icons mr-1">person_outline</span>
+                        ${user.full_name}
+                    `;
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                localStorage.removeItem('auth_token');
+                window.location.href = '/login.html';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('auth_token');
+            window.location.href = '/login.html';
+        }
+
+        // Profile Dropdown
+        function setupProfileDropdown() {
+            const profileButton = document.getElementById('profile-button');
+            const profileDropdown = document.getElementById('profile-dropdown');
+
+            if (profileButton && profileDropdown) {
+                profileButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    profileDropdown.classList.toggle('hidden');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!profileDropdown.contains(e.target) && !profileButton.contains(e.target)) {
+                        profileDropdown.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            updateScore(0);
+            setupProfileDropdown();
+        });
+    </script>
+</body>
+</html>

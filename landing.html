@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Fixer - Fix Your SEO in Seconds</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom Theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066FF',
+                        secondary: '#6B7280',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        error: '#EF4444',
+                        dark: '#111827',
+                        light: '#F3F4F6'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-primary">SEO Fixer</span>
+                </div>
+                <div>
+                    <a href="/login.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700">
+                        Sign In
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="relative bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:pb-28 xl:pb-32">
+                <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                    <div class="text-center">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                            <span class="block">Fix Your SEO</span>
+                            <span class="block text-primary">in Seconds!</span>
+                        </h1>
+                        <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
+                            Boost your website's visibility with our AI-powered SEO analyzer. Get instant insights and fixes for better rankings.
+                        </p>
+                        
+                        <!-- URL Input -->
+                        <div class="mt-8 flex justify-center">
+                            <div class="inline-flex rounded-md shadow w-full max-w-xl">
+                                <input type="url" id="url-input" placeholder="Enter your website URL" class="flex-1 px-4 py-3 rounded-l-md border focus:ring-2 focus:ring-primary focus:border-primary">
+                                <button onclick="analyzeUrl()" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-r-md text-white bg-primary hover:bg-blue-700">
+                                    Analyze My Site
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">
+                    Powerful SEO Tools at Your Fingertips
+                </h2>
+            </div>
+
+            <div class="mt-10">
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Feature 1 -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <span class="material-icons text-4xl text-primary">analytics</span>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">Instant Analysis</h3>
+                                    <p class="mt-2 text-sm text-gray-500">Get detailed SEO insights in seconds with our AI-powered analyzer.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <span class="material-icons text-4xl text-primary">build</span>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">Quick Fixes</h3>
+                                    <p class="mt-2 text-sm text-gray-500">One-click solutions for common SEO issues with our Fix Tools.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <span class="material-icons text-4xl text-primary">history</span>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">Track Progress</h3>
+                                    <p class="mt-2 text-sm text-gray-500">Monitor your SEO improvements with detailed history tracking.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Preview -->
+    <div class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">
+                    Powerful Dashboard
+                </h2>
+                <p class="mt-4 text-lg text-gray-500">
+                    Everything you need to improve your SEO, all in one place.
+                </p>
+            </div>
+
+            <!-- Dashboard Screenshot -->
+            <div class="mt-10">
+                <div class="relative rounded-xl overflow-hidden shadow-xl">
+                    <img src="https://placehold.co/1200x600/e4e4e7/71717a?text=Dashboard+Preview" alt="SEO Fixer Dashboard" class="w-full">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">
+                    What Our Users Say
+                </h2>
+            </div>
+
+            <div class="mt-10">
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <img class="h-12 w-12 rounded-full" src="https://placehold.co/100/4338ca/ffffff?text=JD" alt="John Doe">
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold">John Doe</h4>
+                                <p class="mt-1 text-gray-500">Marketing Manager</p>
+                                <p class="mt-4 text-gray-600">"SEO Fixer helped us improve our rankings significantly. The quick fixes are a game-changer!"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <img class="h-12 w-12 rounded-full" src="https://placehold.co/100/4338ca/ffffff?text=JS" alt="Jane Smith">
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold">Jane Smith</h4>
+                                <p class="mt-1 text-gray-500">Web Developer</p>
+                                <p class="mt-4 text-gray-600">"The AI suggestions are spot-on. It's like having an SEO expert on your team 24/7."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <img class="h-12 w-12 rounded-full" src="https://placehold.co/100/4338ca/ffffff?text=MB" alt="Mike Brown">
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold">Mike Brown</h4>
+                                <p class="mt-1 text-gray-500">Business Owner</p>
+                                <p class="mt-4 text-gray-600">"Easy to use and effective. Our organic traffic increased by 150% in just 3 months!"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-primary">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                    Ready to improve your SEO?
+                </h2>
+                <div class="mt-8 flex justify-center">
+                    <div class="inline-flex rounded-md shadow">
+                        <a href="/login.html" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-primary bg-white hover:bg-gray-50">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function analyzeUrl() {
+            const url = document.getElementById('url-input').value;
+            if (url) {
+                window.location.href = `/login.html?redirect=${encodeURIComponent('/?url=' + url)}`;
+            } else {
+                alert('Please enter a valid URL');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - SEO Fixer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200">
+        <div class="flex flex-col h-full">
+            <!-- Logo -->
+            <div class="flex items-center justify-center h-16 border-b border-gray-200">
+                <span class="text-xl font-bold text-primary">SEO Fixer</span>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 p-4">
+                <a href="/" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <span class="material-icons mr-3">dashboard</span>
+                    Dashboard
+                </a>
+                <a href="/pages/history.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <span class="material-icons mr-3">history</span>
+                    History
+                </a>
+                <a href="/pages/fix-tools.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <span class="material-icons mr-3">build</span>
+                    Fix Tools
+                </a>
+                <a href="/pages/settings.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <span class="material-icons mr-3">settings</span>
+                    Settings
+                </a>
+                <a href="/pages/profile.html" class="flex items-center px-4 py-2 text-blue-600 bg-blue-50 rounded-lg">
+                    <span class="material-icons mr-3">person</span>
+                    Profile
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="ml-64 p-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">Profile</h1>
+            <p class="text-gray-600">View and manage your profile information</p>
+        </div>
+
+        <!-- Profile Grid -->
+        <div class="grid grid-cols-3 gap-6">
+            <!-- Left Column -->
+            <div class="col-span-2 space-y-6">
+                <!-- Basic Info -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Basic Information</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-6">
+                            <div class="flex-shrink-0">
+                                <div class="relative">
+                                    <img id="avatar-preview" class="h-32 w-32 rounded-full object-cover" src="https://placekitten.com/200/200" alt="Profile">
+                                    <label for="avatar-upload" class="absolute bottom-0 right-0 bg-white rounded-full p-2 shadow-lg cursor-pointer hover:bg-gray-50">
+                                        <span class="material-icons text-gray-600">photo_camera</span>
+                                        <input type="file" id="avatar-upload" class="hidden" accept="image/*">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="flex-grow space-y-4">
+                                <div>
+                                    <label for="character" class="block text-sm font-medium text-gray-700">Choose Your Character</label>
+                                    <select id="character" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+                                        <option value="siamese">Siamese Cat - Elegant & Social</option>
+                                        <option value="persian">Persian Cat - Royal & Calm</option>
+                                        <option value="mainecoon">Maine Coon - Gentle Giant</option>
+                                        <option value="ragdoll">Ragdoll - Relaxed & Friendly</option>
+                                        <option value="sphynx">Sphynx - Energetic & Curious</option>
+                                        <option value="bengal">Bengal - Adventurous & Wild</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
+                                    <input type="text" id="fullName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm" placeholder="John Doe">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                    <input type="email" id="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Company</label>
+                                    <input type="text" id="company" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                                    <input type="url" id="website" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                            </div>
+                            <input type="text" id="company" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                            <input type="url" id="website" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Log -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Activity Log</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                            <div>
+                                <p class="font-medium text-gray-900">Analyzed example.com</p>
+                                <p class="text-sm text-gray-500">SEO Score: 85/100</p>
+                            </div>
+                            <span class="text-sm text-gray-500">2 hours ago</span>
+                        </div>
+                        <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                            <div>
+                                <p class="font-medium text-gray-900">Applied meta description fix</p>
+                                <p class="text-sm text-gray-500">blog.example.com</p>
+                            </div>
+                            <span class="text-sm text-gray-500">Yesterday</span>
+                        </div>
+                        <div class="flex items-center justify-between py-3">
+                            <div>
+                                <p class="font-medium text-gray-900">Exported analysis report</p>
+                                <p class="text-sm text-gray-500">shop.example.com</p>
+                            </div>
+                            <span class="text-sm text-gray-500">3 days ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="space-y-6">
+                <!-- Profile Stats -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Statistics</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-600">24</div>
+                            <div class="text-sm text-blue-600">Analyses Run</div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-green-600">18</div>
+                            <div class="text-sm text-green-600">Issues Fixed</div>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-yellow-600">85%</div>
+                            <div class="text-sm text-yellow-600">Avg. Score</div>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600">5</div>
+                            <div class="text-sm text-purple-600">Sites Tracked</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Achievements</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <span class="material-icons text-yellow-500 mr-3">star</span>
+                            <div>
+                                <p class="font-medium text-gray-900">First Analysis</p>
+                                <p class="text-sm text-gray-500">Completed your first SEO analysis</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="material-icons text-blue-500 mr-3">verified</span>
+                            <div>
+                                <p class="font-medium text-gray-900">Quick Fixer</p>
+                                <p class="text-sm text-gray-500">Fixed 10 SEO issues</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center opacity-50">
+                            <span class="material-icons text-gray-400 mr-3">lock</span>
+                            <div>
+                                <p class="font-medium text-gray-900">SEO Expert</p>
+                                <p class="text-sm text-gray-500">Reach 95+ score on 5 sites</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Send Feedback</h2>
+                    <textarea id="feedback" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Your feedback helps us improve..."></textarea>
+                    <button onclick="sendFeedback()" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Send Feedback
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Handle avatar upload
+        document.getElementById('avatar-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                    // Save avatar to localStorage
+                    localStorage.setItem('userAvatar', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle character selection
+        document.getElementById('character').addEventListener('change', function(e) {
+            const character = e.target.value;
+            localStorage.setItem('userCharacter', character);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUserData();
+            setupEventListeners();
+
+            // Load saved avatar and character
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedAvatar) {
+                document.getElementById('avatar-preview').src = savedAvatar;
+            }
+
+            const savedCharacter = localStorage.getItem('userCharacter');
+            if (savedCharacter) {
+                document.getElementById('character').value = savedCharacter;
+            }
+        });
+
+        function loadUserData() {
+            // This would fetch user data from the backend
+            const userData = {
+                fullName: 'John Doe',
+                email: 'john@example.com',
+                company: 'Example Inc.',
+                website: 'https://example.com'
+            };
+
+            document.getElementById('fullName').value = userData.fullName;
+            document.getElementById('email').value = userData.email;
+            document.getElementById('company').value = userData.company;
+            document.getElementById('website').value = userData.website;
+        }
+
+        function sendFeedback() {
+            const feedback = document.getElementById('feedback').value;
+            if (!feedback.trim()) {
+                alert('Please enter your feedback');
+                return;
+            }
+
+            // This would send feedback to the backend
+            alert('Thank you for your feedback!');
+            document.getElementById('feedback').value = '';
+        }
+    </script>
+</body>
+</html>

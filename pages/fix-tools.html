@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Fix Tools - SEO Fixer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Monaco Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/loader.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200">
+        <div class="flex flex-col h-full">
+            <!-- Logo -->
+            <div class="flex items-center justify-center h-16 border-b border-gray-200">
+                <span class="text-xl font-bold text-primary">SEO Fixer</span>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 p-4">
+                <a href="/" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <span class="material-icons mr-3">dashboard</span>
+                    Dashboard
+                </a>
+                <a href="/pages/history.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <span class="material-icons mr-3">history</span>
+                    History
+                </a>
+                <a href="/pages/fix-tools.html" class="flex items-center px-4 py-2 text-blue-600 bg-blue-50 rounded-lg">
+                    <span class="material-icons mr-3">build</span>
+                    Fix Tools
+                </a>
+                <a href="/pages/settings.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <span class="material-icons mr-3">settings</span>
+                    Settings
+                </a>
+                <a href="/pages/profile.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <span class="material-icons mr-3">person</span>
+                    Profile
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="ml-64 p-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Fix Tools</h1>
+                <p class="text-gray-600">Apply and test SEO fixes with real-time preview</p>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-2 gap-6">
+            <!-- Left Column -->
+            <div class="space-y-6">
+                <!-- Code Editor -->
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-medium text-gray-900">Code Editor</h2>
+                        <div class="flex gap-2">
+                            <button onclick="validateChanges()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                Validate
+                            </button>
+                            <button onclick="saveChanges()" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+                    <div id="editor" style="height: 400px; border: 1px solid #e5e7eb; border-radius: 0.5rem;"></div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Quick Actions</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="applyQuickFix('title')" class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                            <span class="material-icons mr-2">title</span>
+                            Fix Title Tags
+                        </button>
+                        <button onclick="applyQuickFix('meta')" class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                            <span class="material-icons mr-2">description</span>
+                            Add Meta Descriptions
+                        </button>
+                        <button onclick="applyQuickFix('image')" class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                            <span class="material-icons mr-2">image</span>
+                            Fix Image Alt Text
+                        </button>
+                        <button onclick="applyQuickFix('links')" class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                            <span class="material-icons mr-2">link</span>
+                            Fix Broken Links
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Fixes -->
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Quick Fixes</h2>
+                    <div class="space-y-4">
+                        <button onclick="applyQuickFix('compress-images')" class="w-full flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <span class="material-icons mr-3 text-blue-600">image</span>
+                                <div class="text-left">
+                                    <div class="font-medium">Compress Images</div>
+                                    <div class="text-sm text-gray-600">Optimize all images for web</div>
+                                </div>
+                            </div>
+                            <span class="material-icons">chevron_right</span>
+                        </button>
+                        <button onclick="applyQuickFix('enable-gzip')" class="w-full flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <span class="material-icons mr-3 text-blue-600">speed</span>
+                                <div class="text-left">
+                                    <div class="font-medium">Enable Gzip Compression</div>
+                                    <div class="text-sm text-gray-600">Add server configuration</div>
+                                </div>
+                            </div>
+                            <span class="material-icons">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="space-y-6">
+                <!-- Preview -->
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Preview</h2>
+                    <div id="preview" class="border border-gray-200 rounded-lg p-4 min-h-[200px]">
+                        <!-- Preview content will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Suggested Fixes -->
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <h2 class="text-lg font-medium text-gray-900 mb-4">Suggested Fixes</h2>
+                    <div id="suggestedFixes" class="space-y-4">
+                        <!-- Fixes will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Monaco Editor
+        require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.33.0/min/vs' } });
+
+        let editor;
+        require(['vs/editor/editor.main'], function () {
+            editor = monaco.editor.create(document.getElementById('editor'), {
+                value: '<!-- Your HTML code here -->',
+                language: 'html',
+                theme: 'vs-light',
+                automaticLayout: true
+            });
+        });
+
+        // Event Listeners
+        document.getElementById('validate-btn').addEventListener('click', validateCode);
+        document.getElementById('save-btn').addEventListener('click', saveChanges);
+
+        // Quick Fix Templates
+        const quickFixes = {
+            title: {
+                find: /<title>.*?<\/title>/,
+                replace: '<title>{{title}} - Your Brand Name</title>',
+                message: 'Title tag optimized for better SEO'
+            },
+            meta: {
+                find: /<head>[^]*?<\/head>/,
+                replace: function(match) {
+                    if (!match.includes('<meta name="description"')) {
+                        return match.replace('</head>', '\n    <meta name="description" content="{{description}}">\n</head>');
+                    }
+                    return match;
+                },
+                message: 'Meta description added'
+            },
+            image: {
+                find: /<img[^>]+>/g,
+                replace: function(match) {
+                    if (!match.includes('alt=')) {
+                        return match.replace('>', ' alt="{{alt}}">');
+                    }
+                    return match;
+                },
+                message: 'Alt text added to images'
+            },
+            links: {
+                find: /<a[^>]+>/g,
+                replace: function(match) {
+                    if (match.includes('href="#"') || match.includes('href=""')) {
+                        return match.replace(/href=["'][^"']*["']/, 'href="{{url}}"');
+                    }
+                    return match;
+                },
+                message: 'Broken links fixed'
+            }
+        };
+
+        // Functions
+        function applyQuickFix(type) {
+            const code = editor.getValue();
+            const fix = quickFixes[type];
+            
+            if (!fix) return;
+
+            let newCode;
+            if (typeof fix.replace === 'function') {
+                newCode = code.replace(fix.find, fix.replace);
+            } else {
+                newCode = code.replace(fix.find, fix.replace);
+            }
+
+            // Update editor content
+            editor.setValue(newCode);
+
+            // Show success message
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'fixed bottom-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded';
+            messageDiv.textContent = fix.message;
+            document.body.appendChild(messageDiv);
+
+            // Remove message after 3 seconds
+            setTimeout(() => messageDiv.remove(), 3000);
+        }
+
+        function validateCode() {
+            const code = editor.getValue();
+            // Basic HTML validation
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(code, 'text/html');
+                const errors = doc.getElementsByTagName('parsererror');
+
+                if (errors.length > 0) {
+                    alert('Invalid HTML: ' + errors[0].textContent);
+                } else {
+                    alert('HTML is valid!');
+                }
+            } catch (e) {
+                alert('Error validating HTML: ' + e.message);
+            }
+        }
+
+        function saveChanges() {
+            const code = editor.getValue();
+            // Save to localStorage for now
+            localStorage.setItem('savedHtmlCode', code);
+            alert('Changes saved!');
+        }
+
+        // Sample suggested fixes
+        const suggestedFixes = [
+            {
+                id: 1,
+                type: 'meta',
+                message: 'Add meta description',
+                suggestion: '<meta name="description" content="Improve your website\'s SEO with our powerful analysis tools">',
+                priority: 'high'
+            },
+            {
+                id: 2,
+                type: 'heading',
+                message: 'Add H1 heading',
+                suggestion: '<h1>Welcome to Your Website</h1>',
+                priority: 'medium'
+            }
+        ];
+
+        // Render suggested fixes
+        function renderSuggestedFixes() {
+            const container = document.getElementById('suggestedFixes');
+            container.innerHTML = suggestedFixes.map(fix => `
+                <div class="p-4 ${fix.priority === 'high' ? 'bg-red-50' : 'bg-yellow-50'} rounded-lg">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-medium ${fix.priority === 'high' ? 'text-red-800' : 'text-yellow-800'}">${fix.message}</h3>
+                            <pre class="mt-2 text-sm ${fix.priority === 'high' ? 'text-red-600' : 'text-yellow-600'}">${fix.suggestion}</pre>
+                        </div>
+                        <button onclick="applyFix(${fix.id})" class="px-3 py-1 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                            Apply
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Apply suggested fix
+        function applyFix(fixId) {
+            const fix = suggestedFixes.find(f => f.id === fixId);
+            if (!fix) return;
+
+            const currentValue = editor.getValue();
+            let newValue;
+
+            switch (fix.type) {
+                case 'meta':
+                    newValue = currentValue.replace('</head>', `    ${fix.suggestion}\n</head>`);
+                    break;
+                case 'heading':
+                    newValue = currentValue.replace('<body>', `<body>\n    ${fix.suggestion}`);
+                    break;
+                default:
+                    return;
+            }
+
+            editor.setValue(newValue);
+            updatePreview();
+        }
+
+        // Update preview
+        function updatePreview() {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = editor.getValue();
+        }
+
+        // Validate changes
+        function validateChanges() {
+            // This would call the backend API for LLM validation
+            alert('Validating changes with AI...');
+        }
+
+        // Save changes
+        function saveChanges() {
+            // This would save changes to the backend
+            alert('Changes saved successfully!');
+        }
+
+        // Apply quick fix
+        function applyQuickFix(type) {
+            switch (type) {
+                case 'compress-images':
+                    alert('Starting image compression...');
+                    break;
+                case 'enable-gzip':
+                    alert('Configuring Gzip compression...');
+                    break;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSuggestedFixes();
+        });
+    </script>
+</body>
+</html>
